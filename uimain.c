@@ -4,6 +4,7 @@
 int main() 
 {
   puts("Welcome!");
+  void (*print_function)(char);
 
   while (1) { // Infinite while loop
 
@@ -26,12 +27,26 @@ int main()
       break;
     case 'a':
       puts("You selected arrow:");
-      print_arrow(5,5);
+      print_arrow(8,8);
       break;
     case 'c':
-      puts("You selected chars:");
+      puts("You selected chars, select the orientation and font of the characters to print (5x7 vertical = 1, 8x12 vertical = 2, 8x12 horizontal = 3)");
+      getchar();
+      switch(getchar()){
+        case '1':
+            print_function = &print_char_5x7;
+            break;
+        case '2':
+            print_function = &print_char_8x12_horizontal;
+            break;
+        case '3':
+            print_function = &print_char_8x12;
+            break;
+        default:
+            print_function = &print_char_8x12_horizontal;
+        }
       for (char c = 'a'; c < 'd'; c++)
-	    print_char_8x12(c);
+	    print_function(c);
       break;
     case 'q':
       puts("Bye!");
